@@ -17,3 +17,7 @@ define("CORE_PATH", ROOT . "Core" . DS);
  * Archivo de Configuraciones
  */
 require_once(CORE_PATH . "Config.php" );
+
+require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/generated-conf/config.php';
+

@@ -1,0 +1,23 @@
+{
+    "name": "steeve/architecture-mvc-php",
+    "description": "Arquitectura MVC de un proyecto PHP con stack Front",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Steeve Luis Angel Torres Agustin",
+            "email": "iam@steeve.me"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\":"App",
+            "Core\\": "Core"
+        }
+    },
+    "require": {
+        "propel/propel": "~2.0@dev"
+    },
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "dev-master"
+    }
+}
