@@ -1,34 +1,32 @@
-
 <h2>Lista de tareas</h2>
-
-
-<a href="<?php echo APP_URL?>tasks/add">Agregar Tarea</a>
+<a href="<?php echo APP_URL ?>tasks/add">Agregar Tarea</a>
 <table border="1">
-
-    <tr>
-
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Fecha</th>
-        <th>Prioridad</th>
-        <th>Status</th>
-        <th>Acción</th>
-
-    </tr>
-
-    <?php foreach ($tasks as $task): ?>
-
+    <thead>
         <tr>
-
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Fecha</th>
+            <th>Prioridad</th>
+            <th>Status</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($tasks as $task): ?>
+        <tr>
             <td><?php echo $task->getId() ?></td>
             <td><?php echo $task->getName() ?></td>
             <td><?php echo $task->getDate("Y-m-d") ?></td>
             <td><?php echo $task->getPriority() ?></td>
             <td><?php echo $task->getStatus() ?></td>
-            <td><a href="<?php echo APP_URL?>tasks/update/<?= $this->e($task->getId()) ?>">Editar</a> | <a href="<?php echo APP_URL?>tasks/delete/<?= $this->e($task->getId()) ?>">Eliminar</a></td>
+            <td><a class="waves-effect waves-teal btn-flat"
+                   href="<?php echo APP_URL ?>tasks/update/<?= $this->e($task->getId()) ?>"><i class="material-icons ">edit</i></a>
+                | <a class="waves-effect waves-teal btn-flat"
+                     href="<?php echo APP_URL ?>tasks/delete/<?= $this->e($task->getId()) ?>"><i class="material-icons">delete</i></a>
+            </td>
 
         </tr>
 
     <?php endforeach ?>
-
+    </tbody>
 </table>
