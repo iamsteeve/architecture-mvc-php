@@ -74,7 +74,7 @@ class View
      */
     public static function render($view, $data = array()): void {
         $renderString = self::$_controller."::".$view;
-        //TODO: Hay que retirar el render de layouot de aqui!!!!
+        //TODO: Hay que retirar el render de layout de aqui!!!!
         echo self::$_templates->render(
             "layouts::header",
             ["title"=> self::$_titlePage]
