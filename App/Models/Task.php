@@ -13,8 +13,10 @@ use App\Models\Base\Task as BaseTask;
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  *
+ * @method toJSON()
  */
 class Task extends BaseTask
 {
+
 
 }

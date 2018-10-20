@@ -1,0 +1,24 @@
+<h2>Agregar Tarea </h2>
+
+<form action="<?php echo APP_URL ?>tasks/update/<?php echo $this->e($task->getId()) ?>" method="post">
+    <label for="name">Nombre</label>
+    <input id="name" name="name" type="text" value="<?= $this->e($task->getName()) ?>"/>
+    <label for="description">Descripción</label>
+    <input id="description" name="description" type="text" value="<?= $this->e($task->getDescription()) ?>"/>
+    <label for="date">Fecha</label>
+    <input id="date" type="date" name="date" value="<?= $this->e($task->getDate("Y-m-d")) ?>"/>
+    <label for="priority">Prioridad</label>
+    <input type="range" name="priority" id="priority" min="0" max="10" value="<?=$this->e($task->getPriority()) ?>">
+    <label for="categories">Categories</label>
+    <select name="category_id" id="categories">
+        <?php foreach ($categories as $category): ?>
+            <?php if ($category->getId() === $task->getId()): ?>
+                <option value="<?php echo $category->getId()?>" selected><?php echo $category->getName()?></option>
+
+            <?php endif ?>
+            <option value="<?php echo $category->getId()?>"><?php echo $category->getName()?></option>
+
+        <?php endforeach ?>
+    </select>
+    <input type="submit" value="Enviar">
+</form>

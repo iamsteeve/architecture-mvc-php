@@ -25,7 +25,7 @@
             <td><?php echo $task->getDate("Y-m-d") ?></td>
             <td><?php echo $task->getPriority() ?></td>
             <td><?php echo $task->getStatus() ?></td>
-            <td><button>Editar</button> | <button>Eliminar</button></td>
+            <td><a href="<?php echo APP_URL?>tasks/update/<?= $this->e($task->getId()) ?>">Editar</a> | <a href="<?php echo APP_URL?>tasks/delete/<?= $this->e($task->getId()) ?>">Eliminar</a></td>
 
         </tr>
 
