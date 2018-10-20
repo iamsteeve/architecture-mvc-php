@@ -3,10 +3,25 @@
  * Carpeta Código fuente de Aplicación
  */
 define("APP_PATH", ROOT . "App" . DS);
+
+/**
+ * Carpeta de las Vistas
+ */
+define("VIEWS_FOLDER", APP_PATH."Views".DS );
 /**
  * Nombre de la carpeta de Aplicación
  */
 define("APP_FOLDER", "architecture-mvc-php");
+
+/**
+ * Controlador por default
+ */
+define("DEFAULT_CONTROLLER", "tasks");
+/**
+ * Layout Por default
+ */
+define("DEFAULT_LAYOUT", "default");
+
 /**
  * Server Name -- Cambielo si está en la raíz o si hay anidación
  */

@@ -15,7 +15,8 @@
         }
     },
     "require": {
-        "propel/propel": "~2.0@dev"
+        "propel/propel": "~2.0@dev",
+        "league/plates": "^3.3"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "dev-master"

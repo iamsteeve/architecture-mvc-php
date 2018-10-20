@@ -21,3 +21,8 @@ require_once(CORE_PATH . "Config.php" );
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/generated-conf/config.php';
 
+try {
+    \Core\App::run(new \Core\Request());
+} catch (Exception $e) {
+    return $e->getMessage();
+}
