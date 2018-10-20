@@ -20,15 +20,15 @@
 
         <tr>
 
-            <td><?php echo $task->getId(); ?></td>
-            <td><?php echo $task->getName(); ?></td>
-            <td><?php echo $task->getDate("Y-m-d"); ?></td>
-            <td><?php echo $task->getPriority(); ?></td>
-            <td><?php echo $task->getStatus(); ?></td>
+            <td><?php echo $task->getId() ?></td>
+            <td><?php echo $task->getName() ?></td>
+            <td><?php echo $task->getDate("Y-m-d") ?></td>
+            <td><?php echo $task->getPriority() ?></td>
+            <td><?php echo $task->getStatus() ?></td>
             <td><button>Editar</button> | <button>Eliminar</button></td>
 
         </tr>
 
-    <?php endforeach; ?>
+    <?php endforeach ?>
 
 </table>
