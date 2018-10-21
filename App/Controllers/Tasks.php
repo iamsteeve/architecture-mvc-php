@@ -91,11 +91,13 @@ class Tasks extends Controller
                 $task->setCategoryId($_POST["category_id"]);
                 $task->setStatus(1);
                 $task->save();
-                header("Location: " . APP_URL . "tasks");
-                die();
+
 
             } catch (PropelException $e) {
                 echo $e->getMessage();
+            } finally{
+                header("Location: " . APP_URL . "tasks");
+                exit();
             }
         }
     }
@@ -107,7 +109,7 @@ class Tasks extends Controller
                 $task = TaskQuery::create()->findPk($item);
                 $task->delete();
                 header("Location: " . APP_URL . "tasks");
-                die();
+                exit();
             } catch (PropelException $exception){
                 $exception->getMessage();
             }

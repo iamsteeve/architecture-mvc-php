@@ -1,2 +1,44 @@
+</main>
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Título del footer</h5>
+                <p class="grey-text text-lighten-4">Contenido del footer, Coloca lo que sea.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2018 Realizado por Steeve
+            <a class="grey-text text-lighten-4 right" href="http://steeve.me">Visítame a steeve.me</a>
+        </div>
+    </div>
+</footer>
+
+
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous">
+
+</script>
+<script type="text/javascript"
+        src="<?php echo APP_URL ?>node_modules/materialize-css/dist/js/materialize.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('select').formSelect();
+        $('.datepicker').datepicker({
+            format: "yyyy-mm-dd"
+        });
+        $('.fixed-action-btn').floatingActionButton();
+        $('.sidenav').sidenav();
+        $('.tap-target').tapTarget();
+    });
+</script>
+
 </body>
 </html>

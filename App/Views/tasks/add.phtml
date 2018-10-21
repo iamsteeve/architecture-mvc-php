@@ -1,19 +1,57 @@
-<h2>Agregar Tarea </h2>
+<div class="container">
+    <div class="row">
+        <h2>Agregar Tarea </h2>
+        <div class="row">
+            <form class="col s12 " action="<?php echo APP_URL?>tasks/add" method="post">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="validate" id="name" name="name" type="text" required/>
+                        <label for="name">Nombre</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="validate"  id="description" name="description" type="text" required/>
+                        <label for="description">Descripción</label>
 
-<form action="<?php echo APP_URL?>tasks/add" method="post">
-    <label for="name">Nombre</label>
-    <input id="name" name="name" type="text"/>
-    <label for="description">Descripción</label>
-    <input id="description" name="description" type="text"/>
-    <label for="date">Fecha</label>
-    <input id="date" type="date" name="date" value="<?php echo date("Y-m-d"); ?>"/>
-    <label for="priority">Prioridad</label>
-    <input type="range" name="priority" id="priority"  min="0" max="10">
-    <label for="categories">Categories</label>
-    <select name="category_id" id="categories">
-        <?php foreach ($categories as $category):?>
-            <option value="<?php echo $category->getId()?>"><?php echo $category->getName()?></option>
-        <?php  endforeach?>
-    </select>
-    <input type="submit" value="Enviar">
-</form>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="datepicker"  type="text" name="date" value="<?php echo date("Y-m-d"); ?>"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <p>Prioridad</p>
+                        <p class="range-field">
+                            <input  type="range" name="priority" id="priority"  min="0" max="10">
+                        </p>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select name="category_id" >
+                            <option disabled selected>Choose your option</option>
+                            <?php foreach ($categories as $category):?>
+                                <option value="<?php echo $category->getId()?>"><?php echo $category->getName()?></option>
+                            <?php  endforeach?>
+                        </select>
+                        <label >Categories</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+

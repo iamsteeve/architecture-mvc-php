@@ -1,24 +1,67 @@
-<h2>Agregar Tarea </h2>
+<div class="container">
+    <div class="row">
+        <h2>Actualizar Tarea </h2>
+        <div class="row">
+            <form class="col s12 " action="<?php echo APP_URL ?>tasks/update/<?php echo $this->e($task->getId()) ?>"
+                  method="post">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="validate" id="name" name="name" type="text"
+                               value="<?= $this->e($task->getName()) ?>" required/>
+                        <label for="name">Nombre</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="validate" id="description" name="description" type="text"
+                               value="<?= $this->e($task->getDescription()) ?>" required/>
+                        <label for="description">Descripción</label>
 
-<form action="<?php echo APP_URL ?>tasks/update/<?php echo $this->e($task->getId()) ?>" method="post">
-    <label for="name">Nombre</label>
-    <input id="name" name="name" type="text" value="<?= $this->e($task->getName()) ?>"/>
-    <label for="description">Descripción</label>
-    <input id="description" name="description" type="text" value="<?= $this->e($task->getDescription()) ?>"/>
-    <label for="date">Fecha</label>
-    <input id="date" type="date" name="date" value="<?= $this->e($task->getDate("Y-m-d")) ?>"/>
-    <label for="priority">Prioridad</label>
-    <input type="range" name="priority" id="priority" min="0" max="10" value="<?=$this->e($task->getPriority()) ?>">
-    <label for="categories">Categories</label>
-    <select name="category_id" id="categories">
-        <?php foreach ($categories as $category): ?>
-            <?php if ($category->getId() === $task->getId()): ?>
-                <option value="<?php echo $category->getId()?>" selected><?php echo $category->getName()?></option>
+                    </div>
+                </div>
 
-            <?php endif ?>
-            <option value="<?php echo $category->getId()?>"><?php echo $category->getName()?></option>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="datepicker" type="text" name="date" value="<?= $this->e($task->getDate("Y-m-d")) ?>"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <p>Prioridad</p>
+                        <p class="range-field">
+                            <input type="range" name="priority" id="priority" min="0" max="10"
+                                   value="<?= $this->e($task->getPriority()) ?>">
+                        </p>
 
-        <?php endforeach ?>
-    </select>
-    <input type="submit" value="Enviar">
-</form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select name="category_id">
+                            <?php foreach ($categories as $category): ?>
+                                <?php if ($category->getId() === $task->getCategoryId()): ?>
+                                    <option value="<?php echo $task->getCategoryId() ?>"
+                                            selected><?php echo $category->getName() ?></option>
+                                <?php endif ?>
+                                <?php if ($category->getId() !== $task->getCategoryId()): ?>
+                                    <option value="<?php echo $category->getId() ?>"><?php echo $category->getName() ?></option>
+                                <?php endif ?>
+                            <?php endforeach ?>
+
+                        </select>
+                        <label>Categories</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+

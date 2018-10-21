@@ -72,12 +72,14 @@ class View
      * @param $view
      * @param array $data
      */
-    public static function render($view, $data = array()): void {
-        $renderString = self::$_controller."::".$view;
+    public static function render($view, $data = array()): void
+    {
+        $renderString = self::$_controller . "::" . $view;
         //TODO: Hay que retirar el render de layout de aqui!!!!
+        ob_start();
         echo self::$_templates->render(
             "layouts::header",
-            ["title"=> self::$_titlePage]
+            ["title" => self::$_titlePage]
         );
         echo self::$_templates->render(
             $renderString,
@@ -86,6 +88,8 @@ class View
         echo self::$_templates->render(
             "layouts::footer"
         );
+    
+
     }
 
 

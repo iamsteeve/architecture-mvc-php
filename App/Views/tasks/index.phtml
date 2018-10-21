@@ -1,7 +1,8 @@
-<h2>Lista de tareas</h2>
-<a href="<?php echo APP_URL ?>tasks/add">Agregar Tarea</a>
-<table border="1">
-    <thead>
+<div class="container">
+    <h2>Lista de tareas</h2>
+    <button class="btn" onclick="$('.tap-target').tapTarget('open');">Ayuda!</button>
+    <table class="highlight responsive-table" border="1">
+        <thead>
         <tr>
             <th>ID</th>
             <th>Nombre</th>
@@ -10,23 +11,36 @@
             <th>Status</th>
             <th>Acción</th>
         </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($tasks as $task): ?>
-        <tr>
-            <td><?php echo $task->getId() ?></td>
-            <td><?php echo $task->getName() ?></td>
-            <td><?php echo $task->getDate("Y-m-d") ?></td>
-            <td><?php echo $task->getPriority() ?></td>
-            <td><?php echo $task->getStatus() ?></td>
-            <td><a class="waves-effect waves-teal btn-flat"
-                   href="<?php echo APP_URL ?>tasks/update/<?= $this->e($task->getId()) ?>"><i class="material-icons ">edit</i></a>
-                | <a class="waves-effect waves-teal btn-flat"
-                     href="<?php echo APP_URL ?>tasks/delete/<?= $this->e($task->getId()) ?>"><i class="material-icons">delete</i></a>
-            </td>
+        </thead>
+        <tbody>
+        <?php foreach ($tasks as $task): ?>
+            <tr>
+                <td><?php echo $task->getId() ?></td>
+                <td><?php echo $task->getName() ?></td>
+                <td><?php echo $task->getDate("Y-m-d") ?></td>
+                <td><?php echo $task->getPriority() ?></td>
+                <td><?php echo $task->getStatus() ?></td>
+                <td><a class="waves-effect waves-teal btn-flat"
+                       href="<?php echo APP_URL ?>tasks/update/<?= $this->e($task->getId()) ?>"><i class="material-icons ">edit</i></a>
+                    | <a class="waves-effect waves-teal btn-flat"
+                         href="<?php echo APP_URL ?>tasks/delete/<?= $this->e($task->getId()) ?>"><i class="material-icons">delete</i></a>
+                </td>
 
-        </tr>
+            </tr>
 
-    <?php endforeach ?>
-    </tbody>
-</table>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+
+    <div class="fixed-action-btn">
+        <a id="floating" href="<?php echo APP_URL ?>tasks/add" class="btn-floating btn-large waves-effect waves-light red">
+            <i class="material-icons">add</i>
+        </a>
+
+    </div>
+    <div class="tap-target blue darken-2" data-target="floating">
+        <div class="tap-target-content">
+            <h5 class="white-text text-darken-2">Haz click para agregar Tareas</h5>
+        </div>
+    </div>
+</div>

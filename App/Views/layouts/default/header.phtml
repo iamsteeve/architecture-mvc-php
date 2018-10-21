@@ -5,8 +5,45 @@
 <head>
 
     <meta charset="UTF-8">
-    <title>Framework Básico: <?php if($this->e($title)) { echo $this->e($title); } ?></title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <link type="text/css" rel="stylesheet" href="<?php echo APP_URL?>node_modules/materialize-css/dist/css/materialize.min.css"  media="screen,projection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Framework Básico: <?php if($this->e($title)) { echo $this->e($title); } ?></title>
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+    </style>
 </head>
 
 <body>
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper container">
+            <a href="<?php echo APP_URL?>" class="brand-logo">Logo</a>
+            <a href="<?php echo APP_URL?>" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="<?php echo APP_URL?>tasks">Tareas</a></li>
+                <li><a href="<?php echo APP_URL?>categories">Categorías</a></li>
+
+            </ul>
+        </div>
+    </nav>
+</div>
+
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="<?php echo APP_URL?>tasks">Tareas</a></li>
+    <li><a href="<?php echo APP_URL?>categories">Categorías</a></li>
+
+</ul>
+
+<main>
