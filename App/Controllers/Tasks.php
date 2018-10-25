@@ -31,8 +31,12 @@ class Tasks extends Controller
      */
     public function index(): void
     {
+        $categories = CategoryQuery::create()->find();
         $tasks = TaskQuery::create()->find();
-        $data = ["tasks" => $tasks];
+        $data = [
+            "tasks" => $tasks,
+            "categories" => $categories
+        ];
         View::setTitlePage("Mira tus tareas");
         View::render("index", $data);
     }
@@ -53,7 +57,7 @@ class Tasks extends Controller
                 $task->setCategoryId($_POST["category_id"]);
                 $task->setStatus(1);
                 $task->save();
-                header("Location: " . APP_URL . "tasks");
+                $this->redirect(array("controller" => "tasks"));
                 die();
 
             } catch (PropelException $e) {
@@ -91,13 +95,11 @@ class Tasks extends Controller
                 $task->setCategoryId($_POST["category_id"]);
                 $task->setStatus(1);
                 $task->save();
-
+                $this->redirect(array("controller" => "tasks"));
+                exit();
 
             } catch (PropelException $e) {
                 echo $e->getMessage();
-            } finally{
-                header("Location: " . APP_URL . "tasks");
-                exit();
             }
         }
     }
@@ -108,7 +110,7 @@ class Tasks extends Controller
                 $item = $this->getRequest()->getArgs()[0];
                 $task = TaskQuery::create()->findPk($item);
                 $task->delete();
-                header("Location: " . APP_URL . "tasks");
+                $this->redirect(array("controller" => "tasks"));
                 exit();
             } catch (PropelException $exception){
                 $exception->getMessage();

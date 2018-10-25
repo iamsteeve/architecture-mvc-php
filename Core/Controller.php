@@ -34,6 +34,16 @@ abstract class Controller
     {
         return $this->request;
     }
+    public function redirect($url = array()): void {
+        $path = "";
+        if ($url["controller"]){
+            $path .= $url["controller"];
+        }
+        if ($url["action"]) {
+            $path.= "/".$url["action"];
+        }
+        header("Location: ". APP_URL.$path);
+    }
 
 
 

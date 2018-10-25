@@ -40,7 +40,7 @@ class Categories extends Controller
                 $category->setName($_POST["name"]);
                 $category->setDescription($_POST["description"]);
                 $category->save();
-                header("Location: " . APP_URL . "categories");
+                $this->redirect(array("controller" => "categories"));
                 exit();
 
             } catch (PropelException $e) {
@@ -70,7 +70,7 @@ class Categories extends Controller
                 $category->setName($_POST["name"]);
                 $category->setDescription($_POST["description"]);
                 $category->save();
-                header("Location: " . APP_URL . "categories");
+                $this->redirect(array("controller" => "categories"));
                 exit();
 
             } catch (PropelException $e) {
@@ -84,7 +84,7 @@ class Categories extends Controller
             $item = $this->getRequest()->getArgs()[0];
             $category = CategoryQuery::create()->findPk($item);
             $category->delete();
-            header("Location: " . APP_URL . "categories");
+            $this->redirect(array("controller" => "categories"));
             exit();
         } catch (PropelException $exception)
         {

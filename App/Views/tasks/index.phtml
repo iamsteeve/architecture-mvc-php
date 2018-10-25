@@ -6,23 +6,36 @@
         <tr>
             <th>ID</th>
             <th>Nombre</th>
+            <th>Descripción</th>
             <th>Fecha</th>
             <th>Prioridad</th>
             <th>Status</th>
+            <th>Categoría</th>
             <th>Acción</th>
         </tr>
         </thead>
         <tbody>
         <?php foreach ($tasks as $task): ?>
             <tr>
-                <td><?php echo $task->getId() ?></td>
-                <td><?php echo $task->getName() ?></td>
-                <td><?php echo $task->getDate("Y-m-d") ?></td>
-                <td><?php echo $task->getPriority() ?></td>
-                <td><?php echo $task->getStatus() ?></td>
-                <td><a class="waves-effect waves-teal btn-flat"
+                <td><?= $this->e($task->getId()) ?></td>
+                <td><?= $this->e($task->getName()) ?></td>
+                <td><?= $this->e($task->getDescription())?></td>
+                <td><?= $this->e($task->getDate("Y-m-d")) ?></td>
+                <td><?= $this->e($task->getPriority()) ?></td>
+                <td>
+                    <?php foreach ($categories as $category): ?>
+                        <?php if ($category->getId() === $task->getCategoryId()): ?>
+                         <?= $this->e($category->getName()) ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </td>
+
+
+                <td><?= $this->e($task->getStatus()) ?></td>
+
+                <td><a class="btn-floating pulse blue"
                        href="<?php echo APP_URL ?>tasks/update/<?= $this->e($task->getId()) ?>"><i class="material-icons ">edit</i></a>
-                    | <a class="waves-effect waves-teal btn-flat"
+                    | <a class="btn-floating pulse red"
                          href="<?php echo APP_URL ?>tasks/delete/<?= $this->e($task->getId()) ?>"><i class="material-icons">delete</i></a>
                 </td>
 
@@ -31,6 +44,29 @@
         <?php endforeach ?>
         </tbody>
     </table>
+
+    <div class="row">
+    <?php foreach ($tasks as $task): ?>
+
+            <div class="col s12 m4 l3">
+                <div class="card  darken-1">
+                    <div class="card-content white-black">
+                        <span class="card-title"><?= $this->e($task->getName()) ?></span>
+                        <p class="truncate">Descripción: <?= $this->e($task->getDescription()) ?> </p>
+                    </div>
+                    <div class="card-action">
+                        <a class="btn-floating pulse blue"
+                           href="<?php echo APP_URL ?>tasks/update/<?= $this->e($task->getId()) ?>"><i class="material-icons ">edit</i></a>
+                        <a class="btn-floating pulse red"
+                             href="<?php echo APP_URL ?>tasks/delete/<?= $this->e($task->getId()) ?>"><i class="material-icons">delete</i></a>
+                    </div>
+                </div>
+            </div>
+    <?php endforeach;?>
+
+    </div>
+
+
 
     <div class="fixed-action-btn">
         <a id="floating" href="<?php echo APP_URL ?>tasks/add" class="btn-floating btn-large waves-effect waves-light red">
