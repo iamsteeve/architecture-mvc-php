@@ -75,9 +75,7 @@ class View
     public static function render($view, $data = array()): void
     {
         $renderString = self::$_controller . "::" . $view;
-        //TODO: Hay que retirar el render de layout de aqui!!!!
         ob_start();
-
         echo self::$_templates->render(
             $renderString,
             $data
