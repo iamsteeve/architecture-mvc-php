@@ -22,6 +22,7 @@
                 <td><?= $this->e($task->getDescription())?></td>
                 <td><?= $this->e($task->getDate("Y-m-d")) ?></td>
                 <td><?= $this->e($task->getPriority()) ?></td>
+                <td><?= $this->e($task->getStatus()) ?></td>
                 <td>
                     <?php foreach ($categories as $category): ?>
                         <?php if ($category->getId() === $task->getCategoryId()): ?>
@@ -31,12 +32,15 @@
                 </td>
 
 
-                <td><?= $this->e($task->getStatus()) ?></td>
 
                 <td><a class="btn-floating pulse blue"
                        href="<?php echo APP_URL ?>tasks/update/<?= $this->e($task->getId()) ?>"><i class="material-icons ">edit</i></a>
                     | <a class="btn-floating pulse red"
                          href="<?php echo APP_URL ?>tasks/delete/<?= $this->e($task->getId()) ?>"><i class="material-icons">delete</i></a>
+                    | <?= $task->getStatus()=='1'? '<a class="btn-floating pulse green"
+                         href=" '.APP_URL. 'tasks/status/'.$task->getId().'"><i class="material-icons">delete</i></a>': '<a class="btn-floating pulse black"
+                         href=" '.APP_URL. 'tasks/status/'.$task->getId().'"><i class="material-icons">delete</i></a>' ?>
+
                 </td>
 
             </tr>
@@ -48,7 +52,7 @@
     <div class="row">
     <?php foreach ($tasks as $task): ?>
 
-            <div class="col s12 m4 l3">
+            <div class="col s12 m4 l4">
                 <div class="card  darken-1">
                     <div class="card-content white-black">
                         <span class="card-title"><?= $this->e($task->getName()) ?></span>

@@ -55,7 +55,7 @@ class Tasks extends Controller
                 $task->setDescription($_POST["description"]);
                 $task->setPriority($_POST["priority"]);
                 $task->setCategoryId($_POST["category_id"]);
-                $task->setStatus(1);
+                $task->setStatus(true);
                 $task->save();
                 $this->redirect(array("controller" => "tasks"));
                 die();
@@ -72,7 +72,7 @@ class Tasks extends Controller
         }
     }
 
-    public function update(): void
+    public function update($id): void
     {
         $item = $this->getRequest()->getArgs()[0];
         $task = TaskQuery::create()->findPk($item);
@@ -93,7 +93,6 @@ class Tasks extends Controller
                 $task->setDescription($_POST["description"]);
                 $task->setPriority($_POST["priority"]);
                 $task->setCategoryId($_POST["category_id"]);
-                $task->setStatus(1);
                 $task->save();
                 $this->redirect(array("controller" => "tasks"));
                 exit();
@@ -104,7 +103,7 @@ class Tasks extends Controller
         }
     }
 
-    public function delete(): void {
+    public function delete($id): void {
         if ($_GET){
             try {
                 $item = $this->getRequest()->getArgs()[0];
@@ -116,5 +115,26 @@ class Tasks extends Controller
                 $exception->getMessage();
             }
         }
+    }
+
+    public function status($id): void {
+        if ($_GET){
+            try {
+                $task = TaskQuery::create()->findPk($id);
+                if ((int) $task->getStatus()===1){
+                    $task->setStatus(false);
+                } else {
+                    $task->setStatus(true);
+                }
+
+                $task->save();
+                $this->redirect(array("controller" => "tasks"));
+                exit();
+            } catch (PropelException $exception){
+                $exception->getMessage();
+            }
+        }
+
+
     }
 }
