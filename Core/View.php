@@ -42,7 +42,7 @@ class View
      * @param string $extensionTemplates
      * @return void
      */
-    public static function createView(Request $request, string $extensionTemplates = "phtml"): void{
+    public static function createView(Request $request, string $extensionTemplates = "phtml"): void {
 
         self::$_controller = $request->getController();
         self::$_extensionTemplates = $extensionTemplates;
@@ -77,16 +77,10 @@ class View
         $renderString = self::$_controller . "::" . $view;
         //TODO: Hay que retirar el render de layout de aqui!!!!
         ob_start();
-        echo self::$_templates->render(
-            "layouts::header",
-            ["title" => self::$_titlePage]
-        );
+
         echo self::$_templates->render(
             $renderString,
             $data
-        );
-        echo self::$_templates->render(
-            "layouts::footer"
         );
     
 
