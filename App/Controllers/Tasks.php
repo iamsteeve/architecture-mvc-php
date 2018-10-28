@@ -75,7 +75,7 @@ class Tasks extends Controller
         }
     }
 
-    public function update($id): void
+    public function update(): void
     {
         try {
             $item = $this->getRequest()->getArgs()[0];
@@ -85,6 +85,7 @@ class Tasks extends Controller
                 $categories = CategoryQuery::create()->find();
                 View::setData("title", "Actualizar Tarea");
                 View::setData("categories", $categories);
+                View::setData("task", $task);
                 View::render("update");
             }
             if($_POST){
