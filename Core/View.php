@@ -13,17 +13,13 @@ use League\Plates\Engine;
 class View
 {
 
-
     /**
      * Controlador recibido por la URL
      * @var string
      */
     private static $_controller;
-    /**
-     * Extensión de las plantillas
-     * @var string
-     */
-    private static $_extensionTemplates;
+
+
     /**
      * Instancia del motor de plantillas
      * @var Engine
@@ -31,13 +27,19 @@ class View
     private static $_templates;
 
     /**
-     * Titulo de la página
+     * Titulo de la página (Opcional)
      * @var string
      */
-    private static $_titlePage = "";
+    private static $_titlePage;
 
     /**
-     * Método para crear La vista
+     * Datos que serán pasados a la vista
+     * @var array
+     */
+    private static $_data = array();
+
+    /**
+     * Método para crear La vista carga solo las carpetas necesarias para trabajar esto reduce carga
      * @param Request $request
      * @param string $extensionTemplates
      * @return void
@@ -45,12 +47,11 @@ class View
     public static function createView(Request $request, string $extensionTemplates = "phtml"): void {
 
         self::$_controller = $request->getController();
-        self::$_extensionTemplates = $extensionTemplates;
 
         $layoutPath = VIEWS_FOLDER. "layouts".DS.DEFAULT_LAYOUT;
         $controllerPath = VIEWS_FOLDER. self::$_controller;
 
-        self::$_templates = new Engine(VIEWS_FOLDER, self::$_extensionTemplates);
+        self::$_templates = new Engine(VIEWS_FOLDER, $extensionTemplates);
         self::$_templates->addFolder("layouts", $layoutPath);
         self::$_templates->addFolder(self::$_controller, $controllerPath);
 
@@ -59,6 +60,8 @@ class View
 
     /**
      * Método para enviar el titulo de una página a renderizar
+     * Puede usar este método o desde el mismo setData
+     * @deprecated Este método ya no es necesario y agrega lógica al Core pero aun puede usarse
      * @param string $titlePage
      */
     public static function setTitlePage(string $titlePage): void
@@ -67,28 +70,47 @@ class View
     }
 
 
+
+    /**
+     * Pasa información importante a la vista según lo que le envíe el controlador
+     * y le pasa un array con un name que será el nombre de la variable y el value
+     * que será los datos de la variable
+     * @param string $name
+     * @param mixed $value
+     */
+    public static function setData($name, $value): void
+    {
+        self::$_data[$name] = $value;
+    }
+
+
     /**
      * Método que renderiza la Template
      * @param $view
-     * @param array $data
      */
-    public static function render($view, $data = array()): void
+    public static function render($view): void
     {
+        self::verifyExtraData();
         $renderString = self::$_controller . "::" . $view;
         ob_start();
         echo self::$_templates->render(
             $renderString,
-            $data
+            self::$_data
         );
-    
 
     }
 
+    /**
+     * Método que procesa data extra a las plantillas si es que se agregó
+     * @return void
+     */
+    private static function verifyExtraData(): void
+    {
+        if (self::$_titlePage){
+            self::setData('title',self::$_titlePage);
+        }
 
-
-
-
-
+    }
 
 
 }
