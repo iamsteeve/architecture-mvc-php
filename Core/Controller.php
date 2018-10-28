@@ -34,18 +34,23 @@ abstract class Controller
     {
         return $this->request;
     }
+
+    /**
+     * Método de redirección
+     * @param array $url
+     */
     public function redirect($url = array()): void {
         $path = "";
         if ($url["controller"]){
             $path .= $url["controller"];
         }
-        if ($url["action"]) {
+        if (isset($url["action"])) {
             $path.= "/".$url["action"];
         }
+
         header("Location: ". APP_URL.$path);
+
     }
-
-
 
     /**
      * Método principal de un controlador
