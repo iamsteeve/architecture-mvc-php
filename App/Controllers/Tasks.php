@@ -35,6 +35,7 @@ class Tasks extends Controller
             $categories = CategoryQuery::create()->find();
             $tasks = TaskQuery::create()->find();
             View::setData("tasks", $tasks);
+            View::setData("categories", $categories);
             View::setData("title", "Mira tus tareas");
             View::render("index");
         } catch (PropelException $propelException) {
