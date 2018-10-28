@@ -13,6 +13,7 @@ define("ROOT", realpath(dirname(__FILE__)) . DS);
  * Carpeta Core de la aplicación
  */
 define("CORE_PATH", ROOT . "Core" . DS);
+
 /**
  * Archivo de Configuraciones
  */
