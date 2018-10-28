@@ -31,14 +31,15 @@ class Tasks extends Controller
      */
     public function index(): void
     {
-        $categories = CategoryQuery::create()->find();
-        $tasks = TaskQuery::create()->find();
-        $data = [
-            "tasks" => $tasks,
-            "categories" => $categories
-        ];
-        View::setTitlePage("Mira tus tareas");
-        View::render("index", $data);
+        try {
+            $categories = CategoryQuery::create()->find();
+            $tasks = TaskQuery::create()->find();
+            View::setData("tasks", $tasks);
+            View::setData("title", "Mira tus tareas");
+            View::render("index");
+        } catch (PropelException $propelException) {
+            echo $propelException->getMessage();
+        }
     }
 
     /**
@@ -46,9 +47,10 @@ class Tasks extends Controller
      */
     public function add(): void
     {
-        if ($_POST) {
-            $task = new Task();
-            try {
+        try {
+            if ($_POST) {
+                $task = new Task();
+
                 $task->setId(null);
                 $task->setName($_POST["name"]);
                 $task->setDate($_POST["date"]);
@@ -60,34 +62,31 @@ class Tasks extends Controller
                 $this->redirect(array("controller" => "tasks"));
                 die();
 
-            } catch (PropelException $e) {
-                echo $e->getMessage();
             }
-        }
-        if ($_GET) {
-            $categories = CategoryQuery::create()->find();
-            $data = ["categories" => $categories];
-            View::setTitlePage("Agrega una Tarea");
-            View::render("add", $data);
+            if ($_GET) {
+                $categories = CategoryQuery::create()->find();
+                View::setData("title", "Agrega una Tarea");
+                View::setData("categories", $categories);
+                View::render("add");
+            }
+        } catch (PropelException $propelException){
+            echo $propelException->getMessage();
         }
     }
 
     public function update($id): void
     {
-        $item = $this->getRequest()->getArgs()[0];
-        $task = TaskQuery::create()->findPk($item);
-        if ($_GET) {
+        try {
+            $item = $this->getRequest()->getArgs()[0];
+            $task = TaskQuery::create()->findPk($item);
+            if ($_GET) {
 
-            $categories = CategoryQuery::create()->find();
-            $data = [
-                "task" => $task,
-                "categories" => $categories
-            ];
-            View::setTitlePage("Actualizar Tarea");
-            View::render("update", $data);
-        }
-        if($_POST){
-            try {
+                $categories = CategoryQuery::create()->find();
+                View::setData("title", "Actualizar Tarea");
+                View::setData("categories", $categories);
+                View::render("update");
+            }
+            if($_POST){
                 $task->setName($_POST["name"]);
                 $task->setDate($_POST["date"]);
                 $task->setDescription($_POST["description"]);
@@ -96,11 +95,11 @@ class Tasks extends Controller
                 $task->save();
                 $this->redirect(array("controller" => "tasks"));
                 exit();
-
-            } catch (PropelException $e) {
-                echo $e->getMessage();
             }
+        } catch (PropelException $propelException){
+            echo $propelException->getMessage();
         }
+
     }
 
     public function delete($id): void {

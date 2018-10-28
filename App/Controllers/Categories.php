@@ -22,20 +22,25 @@ class Categories extends Controller
      */
     public function index(): void
     {
-        $categories = CategoryQuery::create()->find();
-        $data = [
-            "categories" => $categories
-        ];
-        View::setTitlePage("Mira todas las categorias");
-        View::render("index",$data);
+        try {
+            $categories = CategoryQuery::create()->find();
+            View::setData("title", "Mira todas las Categorías");
+            View::setData("categories", $categories);
+            View::render("index");
+
+        } catch (PropelException $propelException) {
+            echo $propelException->getMessage();
+        }
+
     }
 
     public function add(): void
     {
 
         if ($_POST) {
-            $category = new Category();
+
             try {
+                $category = new Category();
                 $category->setId(null);
                 $category->setName($_POST["name"]);
                 $category->setDescription($_POST["description"]);
@@ -48,46 +53,44 @@ class Categories extends Controller
             }
         }
         if ($_GET) {
-            View::setTitlePage("Agrega una Categoría");
+            View::setData("title", "Agrega una Categoría");
             View::render("add");
         }
     }
 
     public function update(): void
     {
-        $item = $this->getRequest()->getArgs()[0];
-        $category = CategoryQuery::create()->findPk($item);
-        if ($_GET) {
+        try {
+            $item = $this->getRequest()->getArgs()[0];
+            $category = CategoryQuery::create()->findPk($item);
+            if ($_GET) {
+                View::setData("title", "Actualizar categoría");
+                View::setData("category",$category);
+                View::render("update");
+            }
+            if ($_POST) {
 
-            $data = [
-                "category" => $category
-            ];
-            View::setTitlePage("Actualizar Categoría");
-            View::render("update", $data);
-        }
-        if($_POST){
-            try {
                 $category->setName($_POST["name"]);
                 $category->setDescription($_POST["description"]);
                 $category->save();
                 $this->redirect(array("controller" => "categories"));
                 exit();
-
-            } catch (PropelException $e) {
-                echo $e->getMessage();
             }
+        } catch (PropelException $propelException) {
+            echo $propelException->getMessage();
         }
+
     }
+
     public function delete(): void
     {
-        try{
+        try {
             $item = $this->getRequest()->getArgs()[0];
             $category = CategoryQuery::create()->findPk($item);
             $category->delete();
             $this->redirect(array("controller" => "categories"));
             exit();
-        } catch (PropelException $exception)
-        {
+        } catch (PropelException $exception) {
             echo $exception->getMessage();
         }
 
