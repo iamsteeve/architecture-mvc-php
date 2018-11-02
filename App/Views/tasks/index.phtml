@@ -17,7 +17,8 @@
         </thead>
         <tbody>
         <?php foreach ($tasks as $task): ?>
-            <tr>
+
+            <tr <?= $task->getStatus()? '' :'style="opacity: .4;"' ?>>
                 <td><?= $this->e($task->getId()) ?></td>
                 <td><?= $this->e($task->getName()) ?></td>
                 <td><?= $this->e($task->getDescription())?></td>
