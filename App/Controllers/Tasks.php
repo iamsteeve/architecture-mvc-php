@@ -9,6 +9,8 @@ use App\Models\TaskQuery;
 use Core\Controller;
 use Core\View;
 use Propel\Runtime\Exception\PropelException;
+use Josantonius\Session\Session;
+
 
 /**
  * Controlador que maneja Tasks
@@ -33,9 +35,14 @@ class Tasks extends Controller
     {
         try {
             $categories = CategoryQuery::create()->find();
-            $tasks = TaskQuery::create()->find();
+            // $tasks = TaskQuery::create()->find();
+            $tasks = TaskQuery::create()
+                ->filterByCategory($categories)
+                ->find();
+
+            View::sendSessionToView();
+
             View::setData("tasks", $tasks);
-            View::setData("categories", $categories);
             View::setData("title", "Mira tus tareas");
             View::render("index");
         } catch (PropelException $propelException) {
@@ -48,6 +55,7 @@ class Tasks extends Controller
      */
     public function add(): void
     {
+
         try {
             if ($_POST) {
                 $task = new Task();
@@ -60,12 +68,15 @@ class Tasks extends Controller
                 $task->setCategoryId($_POST["category_id"]);
                 $task->setStatus(true);
                 $task->save();
+                Session::set("action","Tarea creada");
                 $this->redirect(array("controller" => "tasks"));
                 die();
 
             }
             if ($_GET) {
                 $categories = CategoryQuery::create()->find();
+                View::sendSessionToView();
+
                 View::setData("title", "Agrega una Tarea");
                 View::setData("categories", $categories);
                 View::render("add");
@@ -81,7 +92,7 @@ class Tasks extends Controller
             $item = $this->getRequest()->getArgs()[0];
             $task = TaskQuery::create()->findPk($item);
             if ($_GET) {
-
+                View::sendSessionToView();
                 $categories = CategoryQuery::create()->find();
                 View::setData("title", "Actualizar Tarea");
                 View::setData("categories", $categories);
@@ -95,6 +106,7 @@ class Tasks extends Controller
                 $task->setPriority($_POST["priority"]);
                 $task->setCategoryId($_POST["category_id"]);
                 $task->save();
+                Session::set("action", "Tarea Actualizada");
                 $this->redirect(array("controller" => "tasks"));
                 exit();
             }
@@ -110,6 +122,7 @@ class Tasks extends Controller
                 $item = $this->getRequest()->getArgs()[0];
                 $task = TaskQuery::create()->findPk($item);
                 $task->delete();
+                Session::set("action","Tarea Eliminada");
                 $this->redirect(array("controller" => "tasks"));
                 exit();
             } catch (PropelException $exception){
@@ -129,6 +142,7 @@ class Tasks extends Controller
                 }
 
                 $task->save();
+                Session::set("action", "Status Actualizado");
                 $this->redirect(array("controller" => "tasks"));
                 exit();
             } catch (PropelException $exception){

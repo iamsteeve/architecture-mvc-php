@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\CategoryQuery;
 use Core\Controller;
 use Core\View;
+use Josantonius\Session\Session;
 use Propel\Runtime\Exception\PropelException;
 
 class Categories extends Controller
@@ -24,6 +25,7 @@ class Categories extends Controller
     {
         try {
             $categories = CategoryQuery::create()->find();
+            View::sendSessionToView();
             View::setData("title", "Mira todas las Categorías");
             View::setData("categories", $categories);
             View::render("index");
@@ -45,6 +47,7 @@ class Categories extends Controller
                 $category->setName($_POST["name"]);
                 $category->setDescription($_POST["description"]);
                 $category->save();
+                Session::set('action','Categoría agregada');
                 $this->redirect(array("controller" => "categories"));
                 exit();
 
@@ -53,6 +56,7 @@ class Categories extends Controller
             }
         }
         if ($_GET) {
+            View::sendSessionToView();
             View::setData("title", "Agrega una Categoría");
             View::render("add");
         }
@@ -64,6 +68,7 @@ class Categories extends Controller
             $item = $this->getRequest()->getArgs()[0];
             $category = CategoryQuery::create()->findPk($item);
             if ($_GET) {
+                View::sendSessionToView();
                 View::setData("title", "Actualizar categoría");
                 View::setData("category",$category);
                 View::render("update");
@@ -73,6 +78,7 @@ class Categories extends Controller
                 $category->setName($_POST["name"]);
                 $category->setDescription($_POST["description"]);
                 $category->save();
+                Session::set('action', 'Categoría Actualizada');
                 $this->redirect(array("controller" => "categories"));
                 exit();
             }
@@ -88,6 +94,7 @@ class Categories extends Controller
             $item = $this->getRequest()->getArgs()[0];
             $category = CategoryQuery::create()->findPk($item);
             $category->delete();
+            Session::set('action', 'Categoría eliminada');
             $this->redirect(array("controller" => "categories"));
             exit();
         } catch (PropelException $exception) {

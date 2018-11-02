@@ -2,6 +2,9 @@
 
 namespace Core;
 defined("CORE_PATH") OR die("Acceso denegado");
+
+use App\Extensions\Tasks;
+use Josantonius\Session\Session;
 use League\Plates\Engine;
 
 
@@ -54,7 +57,7 @@ class View
         self::$_templates = new Engine(VIEWS_FOLDER, $extensionTemplates);
         self::$_templates->addFolder("layouts", $layoutPath);
         self::$_templates->addFolder(self::$_controller, $controllerPath);
-
+        self::$_templates->loadExtension(new Tasks());
     }
 
 
@@ -69,7 +72,12 @@ class View
         self::$_titlePage = $titlePage;
     }
 
-
+    public static function sendSessionToView(): void {
+        if (Session::get('action')){
+            self::$_templates->addData(['action'=>Session::get('action')],'layouts::base');
+            Session::set('action', false);
+        }
+    }
 
     /**
      * Pasa información importante a la vista según lo que le envíe el controlador
@@ -111,6 +119,15 @@ class View
         }
 
     }
+
+    /**
+     * @return Engine
+     */
+    public static function getTemplates(): Engine
+    {
+        return self::$_templates;
+    }
+
 
 
 }

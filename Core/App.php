@@ -1,6 +1,8 @@
 <?php
 
 namespace Core;
+use Josantonius\Session\Session;
+
 defined("CORE_PATH") OR die("Acceso denegado");
 
 /**
@@ -27,6 +29,7 @@ class App
      * @throws \Exception
      */
     public static function run(Request $request){
+        Session::init();
         $pathController = self::DIRECTORY_CONTROLLERS. ucfirst($request->getController()). ".php";
         $method = $request->getMethod();
         $args = $request->getArgs();

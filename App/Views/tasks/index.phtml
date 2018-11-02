@@ -21,16 +21,11 @@
                 <td><?= $this->e($task->getId()) ?></td>
                 <td><?= $this->e($task->getName()) ?></td>
                 <td><?= $this->e($task->getDescription())?></td>
-                <td><?= $this->e($task->getDate("Y-m-d")) ?></td>
-                <td><?= $this->e($task->getPriority()) ?></td>
-                <td><?= $this->e($task->getStatus()) ?></td>
-                <td>
-                    <?php foreach ($categories as $category): ?>
-                        <?php if ($category->getId() === $task->getCategoryId()): ?>
-                         <?= $this->e($category->getName()) ?>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </td>
+                <td><?= $this->e($this->tasks()->formatDate($task->getDate("d-F-Y"))) ?></td>
+                <td><?= $this->tasks()->formatPriority($task->getPriority()) ?></td>
+                <td><?= $this->tasks()->status($task->getStatus()) ?></td>
+                <td><?= $this->e($task->getCategory()->getName()) ?></td>
+
 
 
 
@@ -38,9 +33,9 @@
                        href="<?php echo APP_URL ?>tasks/update/<?= $this->e($task->getId()) ?>"><i class="material-icons ">edit</i></a>
                     | <a class="btn-floating pulse red"
                          href="<?php echo APP_URL ?>tasks/delete/<?= $this->e($task->getId()) ?>"><i class="material-icons">delete</i></a>
-                    | <?= $task->getStatus()=='1'? '<a class="btn-floating pulse green"
-                         href=" '.APP_URL. 'tasks/status/'.$task->getId().'"><i class="material-icons">delete</i></a>': '<a class="btn-floating pulse black"
-                         href=" '.APP_URL. 'tasks/status/'.$task->getId().'"><i class="material-icons">delete</i></a>' ?>
+                    | <?= $task->getStatus()? '<a class="btn-floating pulse green"
+                         href=" '.APP_URL. 'tasks/status/'.$task->getId().'"><i class="material-icons">check</i></a>': '<a class="btn-floating pulse black"
+                         href=" '.APP_URL. 'tasks/status/'.$task->getId().'"><i class="material-icons">clear</i></a>' ?>
 
                 </td>
 

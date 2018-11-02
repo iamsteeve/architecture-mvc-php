@@ -48,7 +48,20 @@
          $('.fixed-action-btn').floatingActionButton();
          $('.sidenav').sidenav();
          $('.tap-target').tapTarget();
+
      });
  </script>
+
+
+ <?php
+ if(isset($action))
+ {
+ ?>
+ <script>
+     M.toast({html:'<?php echo $action ?>'})
+     </script>
+     <?php
+ }
+ ?>
 </body>
 </html>
