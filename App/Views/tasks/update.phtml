@@ -43,7 +43,7 @@
                         <select name="category_id">
                             <?php foreach ($categories as $category): ?>
 
-                                <?= $category->getId() === $task->getCategoryId()? '<option value='.$task->getCategoryId().' selected>'.$category->getName(). '</option>': '<option value='.$task->getCategoryId().'>'.$category->getName(). '</option>'   ?>
+                                <?= $category->getId() === $task->getCategoryId()? '<option value="'.$category->getId().'" selected>'.$category->getName(). '</option>': '<option value="'.$category->getId().'">'.$category->getName(). '</option>'   ?>
                             <?php endforeach ?>
 
                         </select>
