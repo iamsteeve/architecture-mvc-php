@@ -84,3 +84,5 @@ typings/
 
 # idea Files
 .idea
+# Propel
+propel.php.dist
